@@ -7,6 +7,7 @@ import CustomTitle from './components/atoms/CustomTitle';
 import ServiceHeader from './components/organisms/ServiceHeader';
 import ImageUploader from './components/organisms/ImageUploader';
 import Space from './components/atoms/Space';
+import AnalysisId from './components/organisms/AnalysisId';
 
 
 const App = () => (

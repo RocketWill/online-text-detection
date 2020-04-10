@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, Upload, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
+import AnalysisId from './AnalysisId';
+import Space from '../atoms/Space';
 
 const { Dragger } = Upload;
 
@@ -24,6 +26,8 @@ export default function ImageUploader() {
 
   return (
     <Card>
+      <AnalysisId />
+      <Space spaceSize={5} />
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
