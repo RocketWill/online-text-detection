@@ -25,6 +25,7 @@ const useStyles = makeStyles({
   },
   preview: {
     maxWidth: 600,
+    minWidth: 500,
     width: '100%',
     margin: '0 auto',
     display: 'block',
