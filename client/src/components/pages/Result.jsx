@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Result() {
   const classes = useStyles();
   const { id } = useParams();
+  const [fetching, setFetching] = useState(true);
   return (
     <div>
       {`Hello Result ${id}`}
@@ -31,7 +32,7 @@ export default function Result() {
       <Space />
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} xl={12}>
-          <Card title="Before" extra={<a href="#">More</a>} loading>
+          <Card title="Before" extra={<a href="#">More</a>} loading={fetching}>
             Before
           </Card>
         </Col>
@@ -44,7 +45,7 @@ export default function Result() {
               </Button>
 )}
             className={classes.bottomCard}
-            loading
+            loading={fetching}
           >
             After
           </Card>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Card, Upload, message, Typography, Button, Spin,
+  Card, Upload, message, Typography, Button, Spin, Tag,
 } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import Space from '../atoms/Space';
@@ -13,6 +13,9 @@ const { Dragger } = Upload;
 const { Text } = Typography;
 
 const useStyles = makeStyles({
+  dragger: {
+    height: '300px !important',
+  },
   btnContainer: {
     float: 'right',
     marginTop: 20,
@@ -21,7 +24,13 @@ const useStyles = makeStyles({
     marginLeft: 10,
   },
   preview: {
+    maxWidth: 600,
     width: '100%',
+    margin: '0 auto',
+    display: 'block',
+  },
+  previewTag: {
+    marginLeft: 10,
   },
 });
 
@@ -73,9 +82,10 @@ export default function ImageUploader() {
     <Spin tip="Processing..." spinning={spinning}>
       <Card>
         <Text type="secondary">{`Analysis ID: ${analysisId}`}</Text>
+        {fileList.length > 0 && <Tag className={classes.previewTag} color="blue">Preview</Tag>}
         <Space spaceSize={5} />
         {fileList.length === 0 && (
-        <Dragger {...props}>
+        <Dragger {...props} className={classes.dragger}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
