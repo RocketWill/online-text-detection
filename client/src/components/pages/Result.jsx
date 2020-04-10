@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Row, Col, Card, Button,
 } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
+
 import ServiceHeader from '../organisms/ServiceHeader';
 import Space from '../atoms/Space';
 
@@ -34,7 +36,16 @@ export default function Result() {
           </Card>
         </Col>
         <Col xs={24} sm={24} md={24} xl={12}>
-          <Card title="After" extra={<a href="#">More</a>} className={classes.bottomCard}>
+          <Card
+            title="After"
+            extra={(
+              <Button type="secondary" icon={<DownloadOutlined />} size="small">
+                Download
+              </Button>
+)}
+            className={classes.bottomCard}
+            loading
+          >
             After
           </Card>
         </Col>

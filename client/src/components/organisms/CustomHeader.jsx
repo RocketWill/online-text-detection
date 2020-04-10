@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Layout } from 'antd';
 import logoImg from '../../assets/wattman_logo.png';
@@ -29,7 +30,7 @@ export default function CustomHeader() {
   return (
     <Header className={classes.header}>
       <div className={classes.container}>
-        <img src={logoImg} className={classes.logo} alt="wattman logo" />
+        <Link to="/"><img src={logoImg} className={classes.logo} alt="wattman logo" /></Link>
       </div>
     </Header>
   );
