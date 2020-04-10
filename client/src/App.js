@@ -1,24 +1,25 @@
 import React from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import CustomHeader from './components/organisms/CustomHeader';
 import Container from './components/organisms/Container';
-import CustomTitle from './components/atoms/CustomTitle';
-import ServiceHeader from './components/organisms/ServiceHeader';
-import ImageUploader from './components/organisms/ImageUploader';
-import Space from './components/atoms/Space';
-import AnalysisId from './components/organisms/AnalysisId';
+import Main from './components/pages/Main';
+import Result from './components/pages/Result';
 
 
 const App = () => (
-  <Layout className="layout">
-    <CustomHeader />
-    <Container>
-      <ServiceHeader title="Online Image Text Detection Service" subtitle="based on CRAFT model" />
-      <Space />
-      <ImageUploader />
-    </Container>
-  </Layout>
+  <BrowserRouter>
+    <Layout>
+      <CustomHeader />
+      <Container>
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/result/:id" component={Result} />
+        </Switch>
+      </Container>
+    </Layout>
+  </BrowserRouter>
 );
 
 export default App;

@@ -6,8 +6,8 @@ import { Layout } from 'antd';
 const { Content } = Layout;
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: '20px 150px',
-    height: '100vh',
+    padding: '20px 100px',
+    minHeight: '100vh',
     maxWidth: 1400,
     minWidth: 500,
     margin: '0 auto',
