@@ -37,6 +37,10 @@ export default function Result() {
 
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
+  const handleDownload = (e) => {
+    window.open(`${API_URL}${response.images.processed}`)
+  }
+
   useEffect(() => {
     axios.post(`${API_URL}/text-detection/`, {
       analysis_id: id
@@ -56,7 +60,7 @@ export default function Result() {
       <Space />
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} xl={12}>
-          <Card title="Before" extra={<a href="#">More</a>} loading={fetching}>
+          <Card title="Before" loading={fetching}>
             {response && response['images']['original'] && <img className={classes.image} src={`${API_URL}${response.images.original}`} alt="original" /> }
           </Card>
         </Col>
@@ -64,7 +68,7 @@ export default function Result() {
           <Card
             title="After"
             extra={(
-              <Button type="secondary" icon={<DownloadOutlined />} size="small">
+              <Button type="secondary" icon={<DownloadOutlined />} size="small" onClick={handleDownload} disabled={fetching}>
                 Download
               </Button>
 )}
