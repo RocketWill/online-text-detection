@@ -2,6 +2,11 @@ from flask import Flask, request, make_response, abort
 from flask_cors import CORS
 from .config import config_by_name
 
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config_by_name[config_name])
+    return app
+
 def build_cors_prelight_response():
     handle_result = {'result': True, 'msg': 'success'}
     try:
@@ -25,8 +30,3 @@ def build_cors_prelight_response():
         return resp
 
     return abort(403)
-
-def create_app(config_name):
-    app = Flask(__name__)
-    app.config.from_object(config_by_name[config_name])
-    return app
