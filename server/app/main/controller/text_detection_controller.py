@@ -43,7 +43,6 @@ class FileUpload(Resource):
         processed_file = text_detection(analysis_id)
         if processed_file:
             resp['images']['processed'] = url_for('static', filename="upload" + "/" + analysis_id + '/' + processed_file)
-
             return resp, 200
         else:
             resp['status'] = 'Failed'

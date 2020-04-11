@@ -8,6 +8,7 @@ import { DownloadOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import ServiceHeader from '../organisms/ServiceHeader';
 import Space from '../atoms/Space';
+import errorImg from '../../assets/error.jpg';
 
 const { Text } = Typography;
 
@@ -32,13 +33,25 @@ export default function Result() {
   const classes = useStyles();
   const { id } = useParams();
   const [fetching, setFetching] = useState(true);
-  const [response, setResponse] = useState(null);
+  const [originalImg, setOriginalImg] = useState(null);
+  const [processedImg, setProcessedImg] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL
 
   const spinIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
   const handleDownload = (e) => {
-    window.open(`${API_URL}${response.images.processed}`)
+    window.open({processedImg})
+  }
+
+  const checkResponseData = (res) => {
+    if(res.status !== 'Done') {
+      setOriginalImg(errorImg);
+      setProcessedImg(errorImg);
+    }
+    else {
+      setOriginalImg(`${API_URL}${res.images.original}`)
+      setProcessedImg(`${API_URL}${res.images.processed}`)
+    }
   }
 
   useEffect(() => {
@@ -46,7 +59,7 @@ export default function Result() {
       analysis_id: id
     })
     .then(res => res.data)
-    .then((res) => setResponse(res))
+    .then(res => checkResponseData(res))
     .then(() => setFetching(false))
     .catch(err => console.error(err))
   }, [API_URL, id])
@@ -61,7 +74,7 @@ export default function Result() {
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} xl={12}>
           <Card title="Before" loading={fetching}>
-            {response && response['images']['original'] && <img className={classes.image} src={`${API_URL}${response.images.original}`} alt="original" /> }
+            {originalImg && <img className={classes.image} src={originalImg} alt="original" /> }
           </Card>
         </Col>
         <Col xs={24} sm={24} md={24} xl={12}>
@@ -75,7 +88,7 @@ export default function Result() {
             className={classes.bottomCard}
             loading={fetching}
           >
-            {response && response['images']['processed'] && <img className={classes.image} src={`${API_URL}${response.images.processed}`} alt="processed" /> }
+            {processedImg && <img className={classes.image} src={processedImg} alt="processed" /> }
           </Card>
         </Col>
       </Row>
