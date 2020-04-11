@@ -41,9 +41,14 @@ class FileUpload(Resource):
 
         # start text detection
         processed_file = text_detection(analysis_id)
-        resp['images']['processed'] = url_for('static', filename="upload" + "/" + analysis_id + '/' + processed_file)
+        if processed_file:
+            resp['images']['processed'] = url_for('static', filename="upload" + "/" + analysis_id + '/' + processed_file)
 
-        return resp, 200
+            return resp, 200
+        else:
+            resp['status'] = 'Failed'
+            resp['message'] = 'Process failed.'
+            return resp, 500
 
     def options(self):
         return build_cors_prelight_response()
@@ -52,4 +57,7 @@ from app.main.model.text_detect import test
 def text_detection(analysis_id):
     src_path = os.path.join(file_storage_path, analysis_id)
     test(src_path)
-    return "processed.jpg"
+    file_list = [f for f in listdir(src_path) if f.find("processed") > -1]
+    if len(file_list) > 0:
+        return file_list[0]
+    return False
