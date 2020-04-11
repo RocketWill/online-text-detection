@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     position: 'fixed',
-    zIndex: 10000,
+    zIndex: 1,
   },
   container: {
     maxWidth: 1200,

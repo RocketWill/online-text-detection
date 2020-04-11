@@ -49,7 +49,7 @@ export default function Result() {
     .then((res) => setResponse(res))
     .then(() => setFetching(false))
     .catch(err => console.error(err))
-  }, [])
+  }, [API_URL, id])
 
   return (
     <div>

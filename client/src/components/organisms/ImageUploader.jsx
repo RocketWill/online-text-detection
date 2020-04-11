@@ -43,6 +43,8 @@ export default function ImageUploader() {
   const [preview, setPreview] = useState(null);
   const [spinning, setSpinning] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL
+  const fileSizeLimit = 5 // MB
+  const supportedImgFormat = ['image/jpeg', 'image/jpg', 'image/png']
 
   const handleCancel = () => {
     setFileList([]);
@@ -60,16 +62,25 @@ export default function ImageUploader() {
         message.error('Could only upload one image for now.');
         return false;
       }
+      // check file size
+      if (file.size / 1000 / 1000 > fileSizeLimit) {
+        message.error('Image is too large to upload. Should under 5MB.');
+        return false;
+      }
+      // check file type
+      if (!supportedImgFormat.includes(file.type)) {
+        message.error('Only support jpg/jpeg or png file.');
+        return false;
+      }
       return true;
     },
     action: `${API_URL}/upload/`,
     data: {analysis_id: analysisId},
     onChange(info) {
-      console.log(info)
       const { status } = info.file;
-      if (status !== 'uploading') {
-        setFileList(info.fileList);
-      }
+      // if (status !== 'uploading') {
+        
+      // }
       if (status === 'done') {
         message.success(`${info.file.name} file uploaded successfully.`);
         setFileList(info.fileList);
@@ -110,7 +121,7 @@ export default function ImageUploader() {
             </Button>
           </div>
         </>
-        ) }
+        )}
       </Card>
     </Spin>
   );
