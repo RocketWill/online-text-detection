@@ -34,5 +34,9 @@ class FileUpload(Resource):
     def options(self):
         return build_cors_prelight_response()
 
+from app.main.model.text_detect import test
 def text_detection(analysis_id, original_file_name):
-    return original_file_name
+    abs_src_path = os.path.join(file_storage_path, analysis_id)
+    print(abs_src_path)
+    test(abs_src_path)
+    return "processed.jpg"

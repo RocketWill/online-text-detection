@@ -46,8 +46,8 @@ def saveResult(img_file, img, boxes, dirname='./result/', verticals=None, texts=
         filename, file_ext = os.path.splitext(os.path.basename(img_file))
 
         # result directory
-        res_file = dirname + "res_" + filename + '.txt'
-        res_img_file = dirname + "res_" + filename + '.jpg'
+        res_file = dirname + "/processed" + '.txt'
+        res_img_file = dirname + "/processed" + '.jpg'
 
         if not os.path.isdir(dirname):
             os.mkdir(dirname)
