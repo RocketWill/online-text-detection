@@ -73,7 +73,6 @@ export default function ImageUploader() {
         message.success(`${info.file.name} file uploaded successfully.`);
         setFileList(info.fileList);
         setPreview(`http://127.0.0.1:5000${info.file.response.image}`);
-        console.log(`127.0.0.1:5000${info.file.response.image}`)
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -98,7 +97,7 @@ export default function ImageUploader() {
           </p>
         </Dragger>
         )}
-        { fileList.length > 0 && (
+        { fileList.length > 0 && preview && (
         <>
           <img className={classes.preview} src={preview} alt="preview" />
           <div className={classes.btnContainer}>

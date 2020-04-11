@@ -29,4 +29,4 @@ build
 .idea
 
 # Static files
-static/*
+app/main/static/*
