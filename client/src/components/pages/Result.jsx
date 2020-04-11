@@ -35,7 +35,7 @@ export default function Result() {
   const [response, setResponse] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+  const spinIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
   const handleDownload = (e) => {
     window.open(`${API_URL}${response.images.processed}`)
@@ -55,7 +55,7 @@ export default function Result() {
     <div>
       <Text type="secondary">{`Analysis ID: ${id}`}</Text>
       <Space spaceSize={5} />
-      {fetching && <ServiceHeader title="Trying to load information for you, please wait..." extra={<Spin indicator={antIcon} />} />}
+      {fetching && <ServiceHeader title="Trying to load information for you, please wait..." extra={<Spin indicator={spinIcon} />} />}
       {!fetching && <ServiceHeader title="Text detection result"/>}
       <Space />
       <Row gutter={16}>
