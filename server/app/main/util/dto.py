@@ -1,10 +1,12 @@
 from flask_restplus import Namespace, fields
-from werkzeug.datastructures import FileStorage
+import werkzeug
 
 class FileUploadDto:
-    api = Namespace('file upload', description='files related operations')
-    file_upload = api.model('file upload', {
-        'name': fields.String(required=True, description='File name'),
-        'file': fields.String(required=True, description='File data'),
-        'analysis_id': fields.String(required=True, description='analysis id'),
-    })
+    api = Namespace('file storage', description='Upload pcap files related operations')
+    file_upload_parser = api.parser()
+    file_upload_parser.add_argument('file',
+                             type=werkzeug.datastructures.FileStorage,
+                             location='files',
+                             required=True,
+                             help='file')
+    file_upload_parser.add_argument('analysis_id', required=True, help="analysis id")

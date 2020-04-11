@@ -27,3 +27,6 @@ venv
 *.pyc
 build
 .idea
+
+# Static files
+static/*

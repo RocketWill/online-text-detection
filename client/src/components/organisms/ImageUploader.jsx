@@ -61,18 +61,19 @@ export default function ImageUploader() {
       }
       return true;
     },
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: 'http://127.0.0.1:5000/upload/',
+    data: {analysis_id: analysisId},
     onChange(info) {
-      console.log(info);
+      console.log(info)
       const { status } = info.file;
       if (status !== 'uploading') {
-        console.log(info.fileList);
         setFileList(info.fileList);
       }
       if (status === 'done') {
         message.success(`${info.file.name} file uploaded successfully.`);
         setFileList(info.fileList);
-        setPreview(info.file.response.url);
+        setPreview(`http://127.0.0.1:5000${info.file.response.image}`);
+        console.log(`127.0.0.1:5000${info.file.response.image}`)
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
