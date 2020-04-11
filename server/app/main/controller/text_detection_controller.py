@@ -25,8 +25,17 @@ class FileUpload(Resource):
         original_file = [f for f in listdir(target_folder) if f.find("original") > -1][0]
         resp['images']['original'] = url_for('static', filename="upload" + "/" + analysis_id + '/' + original_file)
 
+        abs_src_path = os.path.join(file_storage_path, analysis_id)
+
+        # check if processed.jpg exists
+        files = [f for f in listdir(abs_src_path) if isfile(join(abs_src_path, f))]
+        if "processed.jpg" in files:
+            resp['images']['processed'] = url_for('static',
+                                                  filename="upload" + "/" + analysis_id + '/' + "processed.jpg")
+            return resp
+
         # start text detection
-        processed_file = text_detection(analysis_id, original_file)
+        processed_file = text_detection(analysis_id)
         resp['images']['processed'] = url_for('static', filename="upload" + "/" + analysis_id + '/' + processed_file)
 
         return resp
@@ -35,7 +44,7 @@ class FileUpload(Resource):
         return build_cors_prelight_response()
 
 from app.main.model.text_detect import test
-def text_detection(analysis_id, original_file_name):
+def text_detection(analysis_id):
     abs_src_path = os.path.join(file_storage_path, analysis_id)
     print(abs_src_path)
     test(abs_src_path)

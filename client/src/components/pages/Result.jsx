@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Row, Col, Card, Button,
+  Row, Col, Card, Button, Spin, Typography
 } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import ServiceHeader from '../organisms/ServiceHeader';
 import Space from '../atoms/Space';
 
+const { Text } = Typography;
+
 const axios = require('axios');
+
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: '0 auto',
@@ -32,6 +35,8 @@ export default function Result() {
   const [response, setResponse] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL
 
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
   useEffect(() => {
     axios.post(`${API_URL}/text-detection/`, {
       analysis_id: id
@@ -44,8 +49,10 @@ export default function Result() {
 
   return (
     <div>
-      {`Hello Result ${id}`}
-      <ServiceHeader title="Please wait a minute..." />
+      <Text type="secondary">{`Analysis ID: ${id}`}</Text>
+      <Space spaceSize={5} />
+      {fetching && <ServiceHeader title="Trying to load information for you, please wait..." extra={<Spin indicator={antIcon} />} />}
+      {!fetching && <ServiceHeader title="Text detection result"/>}
       <Space />
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} xl={12}>
