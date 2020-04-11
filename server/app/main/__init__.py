@@ -18,8 +18,8 @@ def build_cors_prelight_response():
         h = resp.headers
         # prepare headers for CORS authentication
         h['Access-Control-Allow-Origin'] = origin
-        h['Access-Control-Allow-Methods'] = 'GET'
-        h['Access-Control-Allow-Headers'] = 'X-Requested-With'
+        h['Access-Control-Allow-Methods'] = '*'
+        h['Access-Control-Allow-Headers'] = '*'
 
         resp.headers = h
         return resp

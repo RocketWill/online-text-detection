@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     display: 'block',
   },
+  image: {
+    width: '100%',
+  },
   [theme.breakpoints.down('md')]: {
     bottomCard: {
       marginTop: 20,
@@ -26,9 +29,16 @@ export default function Result() {
   const classes = useStyles();
   const { id } = useParams();
   const [fetching, setFetching] = useState(true);
+  const [response, setResponse] = useState(null);
 
   useEffect(() => {
-    console.log(id)
+    axios.post('http://127.0.0.1:5000/text-detection/', {
+      analysis_id: id
+    })
+    .then(res => res.data)
+    .then((res) => setResponse(res))
+    .then(() => setFetching(false))
+    .catch(err => console.error(err))
   }, [])
 
   return (
@@ -39,7 +49,7 @@ export default function Result() {
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} xl={12}>
           <Card title="Before" extra={<a href="#">More</a>} loading={fetching}>
-            Before
+            {response && response['images']['original'] && <img className={classes.image} src={`http://127.0.0.1:5000${response.images.original}`} alt="original" /> }
           </Card>
         </Col>
         <Col xs={24} sm={24} md={24} xl={12}>
@@ -53,7 +63,7 @@ export default function Result() {
             className={classes.bottomCard}
             loading={fetching}
           >
-            After
+            {response && response['images']['processed'] && <img className={classes.image} src={`http://127.0.0.1:5000${response.images.processed}`} alt="processed" /> }
           </Card>
         </Col>
       </Row>
