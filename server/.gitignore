@@ -30,3 +30,6 @@ build
 
 # Static files
 app/main/static/*
+
+# Model weights
+app/main/model/weights/

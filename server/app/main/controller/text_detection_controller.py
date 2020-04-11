@@ -16,7 +16,7 @@ text_detection_parser = TextDetectionDto.text_detection_parser
 class FileUpload(Resource):
     @api.expect(text_detection_parser)
     def post(self):
-        resp = {'status': 'Done', 'message': 'Upload successfully.', 'id': None, 'images': {}}
+        resp = {'status': 'Done', 'message': 'Process successfully.', 'id': None, 'images': {}}
         args = text_detection_parser.parse_args()
         analysis_id = str(args['analysis_id'])
         resp['id'] = analysis_id
