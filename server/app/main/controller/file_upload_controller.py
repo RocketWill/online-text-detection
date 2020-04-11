@@ -5,6 +5,7 @@ from flask import make_response
 from flask_restplus import Resource
 from ..util.dto import FileUploadDto
 from app.main.config import static_folder
+from app.main import build_cors_prelight_response
 
 file_storage_path = os.path.join(static_folder, 'upload')
 
@@ -34,27 +35,3 @@ class FileUpload(Resource):
 
     def options(self):
         return build_cors_prelight_response()
-
-def build_cors_prelight_response():
-    handle_result = {'result': True, 'msg': 'success'}
-    try:
-        # origin, where does this request come from, like www.amazon.com
-        origin = request.environ['HTTP_ORIGIN']
-    except KeyError:
-        origin = None
-
-    # only accept CORS request from localhost
-    if origin and (origin.find('localhost') > -1 or origin.find('127.0.0.1') > -1):
-        resp = make_response(str(handle_result))
-        resp.headers['Content-Type'] = 'application/json'
-
-        h = resp.headers
-        # prepare headers for CORS authentication
-        h['Access-Control-Allow-Origin'] = origin
-        h['Access-Control-Allow-Methods'] = 'GET'
-        h['Access-Control-Allow-Headers'] = 'X-Requested-With'
-
-        resp.headers = h
-        return resp
-
-    return abort(403)
