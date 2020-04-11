@@ -78,9 +78,6 @@ export default function ImageUploader() {
     data: {analysis_id: analysisId},
     onChange(info) {
       const { status } = info.file;
-      // if (status !== 'uploading') {
-        
-      // }
       if (status === 'done') {
         message.success(`${info.file.name} file uploaded successfully.`);
         setFileList(info.fileList);
