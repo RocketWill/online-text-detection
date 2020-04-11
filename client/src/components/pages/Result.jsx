@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,6 +9,7 @@ import { DownloadOutlined } from '@ant-design/icons';
 import ServiceHeader from '../organisms/ServiceHeader';
 import Space from '../atoms/Space';
 
+const axios = require('axios');
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: '0 auto',
@@ -25,6 +26,11 @@ export default function Result() {
   const classes = useStyles();
   const { id } = useParams();
   const [fetching, setFetching] = useState(true);
+
+  useEffect(() => {
+    console.log(id)
+  }, [])
+
   return (
     <div>
       {`Hello Result ${id}`}
