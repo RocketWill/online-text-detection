@@ -42,6 +42,7 @@ export default function ImageUploader() {
   const [fileList, setFileList] = useState([]);
   const [preview, setPreview] = useState(null);
   const [spinning, setSpinning] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL
 
   const handleCancel = () => {
     setFileList([]);
@@ -61,7 +62,7 @@ export default function ImageUploader() {
       }
       return true;
     },
-    action: 'http://127.0.0.1:5000/upload/',
+    action: `${API_URL}/upload/`,
     data: {analysis_id: analysisId},
     onChange(info) {
       console.log(info)
@@ -72,7 +73,7 @@ export default function ImageUploader() {
       if (status === 'done') {
         message.success(`${info.file.name} file uploaded successfully.`);
         setFileList(info.fileList);
-        setPreview(`http://127.0.0.1:5000${info.file.response.image}`);
+        setPreview(`${API_URL}${info.file.response.image}`);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }

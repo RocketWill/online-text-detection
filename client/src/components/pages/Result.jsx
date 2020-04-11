@@ -30,9 +30,10 @@ export default function Result() {
   const { id } = useParams();
   const [fetching, setFetching] = useState(true);
   const [response, setResponse] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL
 
   useEffect(() => {
-    axios.post('http://127.0.0.1:5000/text-detection/', {
+    axios.post(`${API_URL}/text-detection/`, {
       analysis_id: id
     })
     .then(res => res.data)
@@ -49,7 +50,7 @@ export default function Result() {
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} xl={12}>
           <Card title="Before" extra={<a href="#">More</a>} loading={fetching}>
-            {response && response['images']['original'] && <img className={classes.image} src={`http://127.0.0.1:5000${response.images.original}`} alt="original" /> }
+            {response && response['images']['original'] && <img className={classes.image} src={`${API_URL}${response.images.original}`} alt="original" /> }
           </Card>
         </Col>
         <Col xs={24} sm={24} md={24} xl={12}>
@@ -63,7 +64,7 @@ export default function Result() {
             className={classes.bottomCard}
             loading={fetching}
           >
-            {response && response['images']['processed'] && <img className={classes.image} src={`http://127.0.0.1:5000${response.images.processed}`} alt="processed" /> }
+            {response && response['images']['processed'] && <img className={classes.image} src={`${API_URL}${response.images.processed}`} alt="processed" /> }
           </Card>
         </Col>
       </Row>
