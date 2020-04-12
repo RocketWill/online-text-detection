@@ -56,7 +56,7 @@ from app.main.model.text_detect import test
 def text_detection(analysis_id):
     src_path = os.path.join(file_storage_path, analysis_id)
     test(src_path)
-    file_list = [f for f in listdir(src_path) if f.find("processed") > -1]
+    file_list = [f for f in listdir(src_path) if f.find("processed.jpg") > -1]
     if len(file_list) > 0:
         return file_list[0]
     return False

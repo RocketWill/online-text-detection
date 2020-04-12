@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -43,7 +43,7 @@ export default function Result() {
     window.open({processedImg})
   }
 
-  const checkResponseData = (res) => {
+  const checkResponseData = useCallback((res) => {
     if(res.status !== 'Done') {
       setOriginalImg(errorImg);
       setProcessedImg(errorImg);
@@ -52,7 +52,7 @@ export default function Result() {
       setOriginalImg(`${API_URL}${res.images.original}`)
       setProcessedImg(`${API_URL}${res.images.processed}`)
     }
-  }
+  }, [API_URL])
 
   useEffect(() => {
     axios.post(`${API_URL}/text-detection/`, {
@@ -62,7 +62,7 @@ export default function Result() {
     .then(res => checkResponseData(res))
     .then(() => setFetching(false))
     .catch(err => console.error(err))
-  }, [API_URL, id])
+  }, [API_URL, id, checkResponseData])
 
   return (
     <div>
